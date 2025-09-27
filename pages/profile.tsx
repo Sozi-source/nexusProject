@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "@/firebase/firebaseConfig";
+import BioData from "@/components/profile/bioData";
+import OrderList from "@/components/profile/OrderList";
+import AccountSettings from "@/components/profile/accountSettings";
 
 
 const Profile: React.FC = () => {
-    const[username, setUsername]= useState<string>("");
+    const[user, setUser]= useState<User|null>(null);
 
     useEffect(()=>{
-        const unsubscribe = onAuthStateChanged(auth, (user)=>{
-            if(user){
-                setUsername(user.displayName ||"user")
+        const unsubscribe = onAuthStateChanged(auth, (firebaseUser)=>{
+            if(firebaseUser){
+                setUser(firebaseUser)
             }else{
-                setUsername("");
+                setUser(null);
             }
 
         })
@@ -19,13 +22,16 @@ const Profile: React.FC = () => {
         return ()=> unsubscribe()
     }, [])
 
+    if(!user) return <p className="mt-20 text-center">Loading user data...</p>
+
 
 
 
     return (
-        <div className="mt-20">
-            <h1>Hello, {username} </h1>
-            <p>Welcome to your profile!</p>
+        <div className="mt-20 space-y-6">
+            <BioData user={user}/>
+            <OrderList user={user} />
+            <AccountSettings user={user}/>
         </div>
     );
 };

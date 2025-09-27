@@ -1,4 +1,4 @@
-// /interfaces/index.ts
+import { Timestamp } from "firebase/firestore"
 
 export interface Review {
   rating: number
@@ -54,4 +54,20 @@ export interface CartContextprops{
   incrementQuantity: (id:number)=>void;
   decrementQuantity: (id:number)=>void;
   getTotalPrice:()=> number; 
+  clearCart:()=>void;
+}
+
+export interface profileBioProps{
+  name: string;
+  age?: number;
+  email?: string;
+}
+
+ export interface Orderprops {
+  id: string;
+  productName: string;
+  price: number;   
+  quantity: number;
+  status: string;
+  createdAt: Timestamp;
 }

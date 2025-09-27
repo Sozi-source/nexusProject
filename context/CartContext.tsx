@@ -46,14 +46,19 @@ export const CartProvider=({children}:{children:ReactNode})=>{
     
     }
 
+    // Clear cart
+  const clearCart = () => setCart([]);
+
+//   calculate the cumulative price
     const getTotalPrice = () => {
   return cart.reduce((total, item) => {
     return total + (item.price * (item.quantity ?? 1));
   }, 0);
 };
 
+
 return(
-    <CartContext.Provider value={{cart, addToCart, removeFromCart, incrementQuantity, decrementQuantity, getTotalPrice}}>
+    <CartContext.Provider value={{cart, addToCart, removeFromCart, incrementQuantity, decrementQuantity, getTotalPrice, clearCart}}>
         {children}
     </CartContext.Provider>
 )
