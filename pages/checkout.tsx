@@ -2,71 +2,89 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/firebase/auth";
 import ProtectedRoute from "@/components/common/protectedRoute";
 import PlaceOrderButton from "@/components/checkout/PlaceOrderButton";
+import OrderList from "@/pages/profile/OrderList";
 import { db } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/router";
+
 
 const Checkout: React.FC = () => {
   const { user, loading } = useAuth();
-  const [userReady, setUserReady] = useState(false); // Tracks if Firestore user doc exists
+  const [userReady, setUserReady] = useState(false);
   const [ensuringUser, setEnsuringUser] = useState(false);
+  const {cart, getTotalPrice} =useCart()
+  const router= useRouter()
 
-  // Ensure Firestore user document exists
   const ensureUserDocument = async () => {
-    if (!user || !user.uid) {
-      console.warn("User not logged in or UID missing");
-      return;
-    }
-
-    // Skip if already ready
-    if (userReady) return;
+    if (!user?.uid) return;
+    if (userReady || ensuringUser) return;
 
     setEnsuringUser(true);
-
     try {
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
         await setDoc(userRef, {
-          uid: user.uid, // store UID
+          uid: user.uid,
           email: user.email || "",
-          displayName: user.displayName || null,
+          displayName: user.displayName || "",
           createdAt: serverTimestamp(),
         });
-        console.log("User document created in Firestore");
+        console.log("User document created");
       } else {
-        console.log("User document already exists");
+        console.log("User already exists");
       }
 
       setUserReady(true);
     } catch (error: any) {
-      console.error("Error ensuring user document:", error.message);
-      alert("Cannot reach Firestore. Check your network or config.");
+      console.error(error);
     } finally {
       setEnsuringUser(false);
     }
   };
 
-  // Run once when user logs in
   useEffect(() => {
-    if (user) {
-      ensureUserDocument();
-    }
+    if (user) ensureUserDocument();
   }, [user]);
 
   return (
     <ProtectedRoute isAuthenticated={!!user} loading={loading}>
-      <div className="mt-20 max-w-3xl mx-auto space-y-6">
-        <h2 className="text-2xl font-bold">Checkout</h2>
+      <div className="flex mt-20 w-full mx-auto px-4 md:px-8 space-y-6">
+       {/* left side */}
+       <div className="w-1/4">
+         {/* Header */}
+        <div className="">
+          <h2 className="text-3xl font-bold text-gray-800">Checkout</h2>
+          
+          {user && (
+            <p className="mt-2 sm:mt-0 text-gray-600">
+              Welcome, <span className="font-medium">{user.displayName || user.email}</span>
+            </p>
+          )}
+        </div>
 
-        {user && <p>Welcome, {user.displayName || user.email}</p>}
-
-        {user && (
+        {cart.length >0 &&(
+            <div className="mt-6">
+               <p>Total: ${getTotalPrice().toFixed(2)}</p>
+               {/* Place Order Button */}
+          
+          {user && (
           <PlaceOrderButton
+            user={user}
             onBeforePlaceOrder={ensureUserDocument}
             disabled={ensuringUser || !userReady}
           />
         )}
+        </div>
+        )}
+       </div>
+
+        <div>
+          {/* Orders List */}
+          {user && <OrderList user={user} />}
+        </div>
       </div>
     </ProtectedRoute>
   );

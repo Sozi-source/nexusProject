@@ -2,7 +2,6 @@ import { productsProps } from "@/interfaces"
 import { useState, useEffect } from "react"
 import ProductCard from "@/components/common/ProductCard"
 import { useCart } from "@/context/CartContext"
-import Cart from "../Cart"
 
 export default function ProductsPage(){
 

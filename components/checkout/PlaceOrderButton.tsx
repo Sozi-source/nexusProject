@@ -1,57 +1,64 @@
-// components/checkout/PlaceOrderButton.tsx
 import React, { useState } from "react";
+import { db } from "@/firebase/firebaseConfig";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useCart } from "@/context/CartContext";
-import { useAuth } from "@/firebase/auth";
-import { placeOrder } from "@/pages/PlaceOrder";
+import { User } from "firebase/auth";
 
-const PlaceOrderButton: React.FC = () => {
-  const { cart, clearCart } = useCart(); // assuming you have a function to clear the cart after order
-  const { user } = useAuth();
+interface PlaceOrderButtonProps {
+  user: User;
+  onBeforePlaceOrder?: () => Promise<void>;
+  disabled?: boolean;
+}
+
+const PlaceOrderButton: React.FC<PlaceOrderButtonProps> = ({
+  user,
+  onBeforePlaceOrder,
+  disabled = false,
+}) => {
+  const { cart, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const handlePlaceOrder = async () => {
-    if (!user) {
-      setError("You must be signed in to place an order.");
-      return;
-    }
-
-    if (cart.length === 0) {
-      setError("Your cart is empty.");
-      return;
-    }
-
+  const handleClick = async () => {
+    if (loading) return;
     setLoading(true);
-    setError("");
 
     try {
-      const success = await placeOrder(user, cart);
+      if (onBeforePlaceOrder) await onBeforePlaceOrder();
 
-      if (success) {
-        alert("Order placed successfully!");
-        clearCart(); // clear the cart after successful order
-      } else {
-        setError("Failed to place order. Please try again.");
+      if (!cart || cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      setError("An unexpected error occurred. Please try again.");
+
+      // Save order under user's subcollection
+      const orderRef = await addDoc(collection(db, "orders"), {
+        userId: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        items: cart,
+        status: "pending",
+        createdAt: serverTimestamp(),
+      });
+
+      console.log("Order placed with ID:", orderRef.id);
+      alert("Order placed successfully!");
+      clearCart();
+    } catch (error: any) {
+      console.error("Error placing order:", error);
+      alert(error.message || "There was an error placing your order. Try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div>
-      {error && <p className="text-red-500 mb-2">{error}</p>}
-      <button
-        onClick={handlePlaceOrder}
-        disabled={loading}
-        className="w-full bg-yellow-500 text-white py-3 rounded-lg hover:bg-yellow-600 transition"
-      >
-        {loading ? "Placing Order..." : "Place Order"}
-      </button>
-    </div>
+    <button
+      onClick={handleClick}
+      disabled={disabled || loading}
+      className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded disabled:opacity-50"
+    >
+      {loading ? "Processing..." : "Place Order"}
+    </button>
   );
 };
 

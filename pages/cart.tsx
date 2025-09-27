@@ -16,7 +16,7 @@ return(
         <div className="max-w-4xl mx-auto p-6 shadow bg-white">
         <h3 className="text-2xl font-bold mb-6">Cart ({cart.length})</h3>
         {cart.length===0?(
-            <p>Your cart is empty. <Link href="/">Continue Shopping</Link></p>
+            <p className="text-xl font-semibold text-gray-800">Your cart is empty,{""} <Link href="/"className="text-blue-600 hover:underline">continue Shopping</Link></p>
         ):(
             <div>
                 {cart.map((item, index)=>(
@@ -53,8 +53,8 @@ return(
                 {/* checkout */}
                 {cart.length >0 &&(
                     <div className="mt-6">
-                        <h4>CART SUMMARY</h4>
-                        <p>Total: ${getTotalPrice().toFixed(2)}</p>
+                        <h4 className="font-serif font-bold">CART SUMMARY</h4>
+                        <p className="mt-5">Total: ${getTotalPrice().toFixed(2)}</p>
                         <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-lg font-semibold" onClick={()=>router.push("/checkout")}>
                         Proceed to checkout 
                         (${getTotalPrice().toFixed(2)})

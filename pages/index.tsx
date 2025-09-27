@@ -63,11 +63,11 @@ useEffect(() => {
   return (
     <div className="min-h-screen bg-gray-100 flex">
       {/* Left Panel - Categories */}
-      <div className="w-1/5 bg-white shadow-lg p-4 h-screen overflow-y-auto fixed top-20">
+      <div className="w-1/5 bg-white shadow-lg p-4 h-screen overflow-y-auto fixed top-20 ml-3">
         {loadingCategories ? (
           <p>Loading categories...</p>
         ) : (
-          <ul className="ml-10 shadow p-5 bg-white">
+          <ul className="ml-10 shadow p-5 bg-white border border-yellow-300 border-1">
             {categories.map((cat) => (
               <li
                 key={cat.slug}
@@ -86,8 +86,8 @@ useEffect(() => {
       {/* Main Content */}
       <div className="flex-1 ml-[20%] p-6">
         {/* Hero Section */}
-        <div className="bg-red-700 text-white text-center py-12 rounded-lg mb-6 mt-20">
-          <h1 className="text-5xl font-bold mb-2">SHOPLY</h1>
+        <div className="bg-yellow-500 text-white text-center py-4 rounded-lg mb-6 mt-20">
+          <h1 className="text-5xl font-bold mb-2">eDUKA</h1>
           <p className="text-lg md:text-xl">
             Discover amazing products and enjoy effortless shopping
           </p>
