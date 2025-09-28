@@ -1,12 +1,20 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import { productsProps } from "@/interfaces";
 import ProductCard from "@/components/common/ProductCard";
+import Header from "@/components/Header/header";
 
 interface Category {
   slug: string;
   name: string;
   url: string;
 }
+
+const categoryGroups: Record<string, string[]> = {
+  electronics: ["smartphones", "laptops"],
+  "beauty-skincare": ["fragrances", "skincare"],
+  "home-groceries": ["groceries", "home-decoration"],
+  fashion: ["mens-shirts", "womens-dresses"],
+};
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState<productsProps[]>([]);
@@ -15,50 +23,62 @@ const Home: React.FC = () => {
   const [loadingCategories, setLoadingCategories] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
-  // Fetch categories
+  // Set grouped categories for sidebar
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        setLoadingCategories(true);
-        const response = await fetch("https://dummyjson.com/products/categories");
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("Error fetching categories", error);
-      } finally {
-        setLoadingCategories(false);
-      }
-    };
-    fetchCategories();
+    setLoadingCategories(true);
+    const groupedCategories: Category[] = Object.keys(categoryGroups).map((slug) => ({
+      name: slug.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase()),
+      slug,
+      url: "",
+    }));
+    setCategories(groupedCategories);
+    setLoadingCategories(false);
   }, []);
 
-  // Fetch products
+  // Fetch products for selected group
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoadingProducts(true);
-        const url = selectedCategory
-          ? `https://dummyjson.com/products/category/${selectedCategory}?limit=0`
-          : `https://dummyjson.com/products?limit=0`;
-        const response = await fetch(url);
-        const data = await response.json();
-        setProducts(data.products);
+
+        if (!selectedCategory) {
+          const res = await fetch(`https://dummyjson.com/products?limit=0`);
+          const data = await res.json();
+          setProducts(data.products || []);
+          return;
+        }
+
+        const subCategories = categoryGroups[selectedCategory] || [];
+        let productsList: productsProps[] = [];
+
+        for (const cat of subCategories) {
+          const res = await fetch(`https://dummyjson.com/products/category/${cat}?limit=0`);
+          const data = await res.json();
+          productsList = [...productsList, ...(data.products || [])];
+        }
+
+        setProducts(productsList);
       } catch (error) {
         console.error("Error fetching products", error);
+        setProducts([]);
       } finally {
         setLoadingProducts(false);
       }
     };
+
     fetchProducts();
   }, [selectedCategory]);
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
-      {/* Left Panel - Categories */}
+      {/* Header */}
+      <Header />
+
+      {/* Sidebar */}
       <aside className="hidden lg:block w-1/5 bg-white shadow-lg p-4 h-screen overflow-y-auto fixed top-20 ml-3 rounded-md">
         {loadingCategories ? (
           <ul className="ml-5 shadow p-5 bg-white border border-yellow-300 space-y-2 rounded-md">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {Array.from({ length: 4 }).map((_, i) => (
               <li key={i} className="h-4 w-24 bg-gray-200 animate-pulse rounded"></li>
             ))}
           </ul>
@@ -83,12 +103,17 @@ const Home: React.FC = () => {
             )}
           </ul>
         )}
+
+        {/* Contact informatio */}
+        <div className="ml-5 shadow p-5 bg-white border border-yellow-300 space-y-2 rounded-md mt-5">
+          <h4>Contact Us</h4>
+        </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 lg:ml-[20%] p-6">
+      <main className="flex-1 lg:ml-[20%] mt-20 p-6">
         {/* Hero Section */}
-        <div className="shadow bg-yellow-500 text-white text-center py-6 rounded-lg mb-6 mt-20">
+        <div className="shadow bg-yellow-500 text-white text-center py-6 rounded-lg mb-6">
           <h1 className="text-4xl md:text-5xl font-bold mb-2">eDUKA</h1>
           <p className="text-base md:text-lg">
             Discover amazing products and enjoy effortless shopping
@@ -96,8 +121,10 @@ const Home: React.FC = () => {
         </div>
 
         {/* Products Grid */}
-        <h2 className="text-2xl font-bold">
-          {selectedCategory ? `Products in ${selectedCategory}`:""}
+        <h2 className="text-2xl font-bold mb-4">
+          {selectedCategory
+            ? `Products in ${selectedCategory.replace("-", " ")}`
+            : "All Products"}
         </h2>
 
         {loadingProducts ? (
@@ -105,7 +132,7 @@ const Home: React.FC = () => {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="h-64 bg-gray-200 animate-pulse rounded-md"
+                className="bg-gray-200 animate-pulse rounded-md"
               ></div>
             ))}
           </div>
