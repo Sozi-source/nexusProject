@@ -104,3 +104,56 @@ The project uses **DummyJSON API** for products data during development.
 
 - UI uses Lucide & React Icons for modern interactive elements.
 
+## Project progress tracker
+| Feature                                     | Status      |
+| ------------------------------------------- | ----------- |
+| Product grid with responsive images         | ✅ Completed |
+| Product categories (grouped)                | ✅ Completed |
+| Product card with action buttons & icons    | ✅ Completed |
+| Cart integration with React Context         | ✅ Completed |
+| Firebase Authentication                     | ✅ Completed |
+| Firebase Firestore for user/cart data       | ✅ Completed |
+| Responsive design for mobile/tablet/desktop | ✅ Completed |
+| Progressive Web App (PWA) optimization      | ✅ Completed |
+| Lucide & React Icons integration            | ✅ Completed |
+| Loading skeletons                           | ✅ Completed |
+| ESLint & code linting                       | ✅ Completed |
+| Checkout/payment integration                | ⚪ Pending   |
+| Search functionality                        | ⚪ Pending   |
+| Subcategory collapsible menu                | ⚪ Pending   |
+
+
+## Live Demo & Deployment
+
+Live Demo: https://e-duka-three.vercel.app/
+ (replace with your actual URL)
+
+Deployment: The project is deployed using Vercel, providing automatic CI/CD and optimized production builds.
+
+### To deploy manually on Vercel:
+
+1. Sign in to Vercel and connect your GitHub repository.
+
+2. Vercel automatically detects Next.js and installs dependencies.
+
+3. Add environment variables in the Vercel dashboard matching .env.local.
+
+4. Deploy the project; Vercel provides a live URL with PWA support enabled.
+
+## Future Improvements
+
+- Implement checkout and payment integration.
+
+- Add search functionality for products.
+
+- Allow collapsible subcategories in sidebar.
+
+- Optimize performance and SEO for production.
+
+- Expand Firebase usage for user analytics and preferences.
+
+# Author
+
+**Wilfred Osozi** – Full-stack developer with a focus on front-end, responsive design, PWA, and Firebase integration.
+
+LinkedIn: https://www.linkedin.com/in/wilfred-osozi/
