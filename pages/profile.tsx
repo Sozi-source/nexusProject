@@ -1,90 +1,37 @@
-// import React, { useEffect, useState } from "react";
-// import { onAuthStateChanged, User } from "firebase/auth";
-// import { auth } from "@/firebase/firebaseConfig";
-// import BioData from "@/components/profile/bioData";
-// import OrderList from "@/components/profile/OrderList";
-// import AccountSettings from "@/components/profile/accountSettings";
+import BioData from "./profile/bioData";
+import AccountSettings from "./profile/Settings";
+import { User } from "firebase/auth";
+import Image from "next/image";
 
+interface OrderListProps {
+  user: User;
+}
 
-// const Profile: React.FC = () => {
-//     const[user, setUser]= useState<User|null>(null);
-
-//     useEffect(()=>{
-//         const unsubscribe = onAuthStateChanged(auth, (firebaseUser)=>{
-//             if(firebaseUser){
-//                 setUser(firebaseUser)
-//             }else{
-//                 setUser(null);
-//             }
-
-//         })
-
-//         return ()=> unsubscribe()
-//     }, [])
-
-//     if(!user) return <p className="mt-20 text-center">Loading user data...</p>
-
-
-
-
-//     return (
-//         <div className=" lg:flex-row w-full mx-auto px-4 sm:px-6 lg:px-8 mt-20 gap-8">
-//              <section className="flex-1 min-w-[280px] lg:max-w-xs">
-//                 <BioData user={user}/>
-//             </section>
-
-//             <section className="flex-2 min-w-[300px] lg:flex-1">
-//                 <OrderList user={user} />
-//             </section>
-
-//             <section className="flex-1 min-w-[280px] lg:max-w-xs">
-//                 <AccountSettings user={user}/>
-//             </section>
-//            </div>
-//     );
-// };
-
-// export default Profile;
-
-import React, { useEffect, useState } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "@/firebase/firebaseConfig";
-import BioData from "@/pages/profile/bioData";
-import OrderList from "@/pages/profile/OrderList";
-import AccountSettings from "@/pages/profile/accountSettings";
-
-const Profile: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser || null);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  if (!user)
-    return <p className="mt-20 text-center text-gray-500">Loading user data...</p>;
-
+const ProfilePage: React.FC<OrderListProps> = ({ user }) => {
   return (
-    <div className="bg-gray-100 min-h-screen">
-        <div className="w-full px-4 sm:px-6 lg:px-8 mt-20">
-      <div className="lg:flex lg:gap-8">
-        {/* Sidebar: BioData + AccountSettings */}
-        <aside className="flex flex-col gap-6 lg:w-1/4 min-w-[280px]">
-          <BioData user={user} />
-          <AccountSettings user={user} />
-        </aside>
+    <div className="bg-gray-100 min-h-screen px-4 py-4 mt-[10%]">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* BioData Card */}
+        <div className="flex justify-center">
+          <BioData />
+        </div>
 
-        {/* Main content: Orders */}
-        <main className="flex-1 mt-6 lg:mt-0">
-          <OrderList user={user} />
-        </main>
+        {/* Account Settings Card */}
+        <div className="flex justify-center">
+          <AccountSettings />
+        </div>
+
+        {/* side image */}
+        <div className="flex justify-center sm:col-span-2 lg:col-span-2">
+          <Image 
+          src="/assets/images/1.jpg" 
+          alt=""
+          width={600}
+          height={400}/>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
 
-export default Profile;
+export default ProfilePage;

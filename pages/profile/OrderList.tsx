@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { collection, query, orderBy, where, onSnapshot, getDocs, updateDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  orderBy,
+  where,
+  onSnapshot,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "@/firebase/firebaseConfig";
 import { User } from "firebase/auth";
 import Image from "next/image";
@@ -106,56 +115,52 @@ const OrderList: React.FC<OrderListProps> = ({ user }) => {
   // Render Orders
   // -----------------------------
   return (
-    <div className="w-full px-4 md:px-8 mt-10 space-y-6">
+    <div className="w-full px-4 sm:px-6 md:px-8 mt-6 sm:mt-10 space-y-6">
       {orders.map((order) => (
         // Parent Card
         <div
           key={order.id}
-          className="w-full border rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow p-6 flex flex-col"
+          className="w-full border rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow p-4 sm:p-6 flex flex-col"
         >
           {/* Order Header */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4">
-            <p className="font-semibold text-gray-800 break-all">
-              Order ID: {order.id}
-            </p>
-            <p className="mt-2 sm:mt-0 text-sm sm:text-base text-gray-600">
-              Status:{" "}
-              <span
-                className={`font-medium ${
-                  order.status === "pending" ? "text-yellow-600" : "text-green-600"
-                }`}
-              >
-                {order.status}
-              </span>
+            <p className="font-semibold text-yellow-500 break-all text-sm sm:text-base">
+              Order ID: <span className="text-blue-500">{order.id}</span>
             </p>
           </div>
 
           {/* Items Container */}
-          <div className="flex flex-wrap gap-4">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {order.items.map((item: OrderItem) => (
               // Child Card
               <div
                 key={item.id}
-                className="flex-1 min-w-[200px] max-w-[250px] border rounded-lg p-3 bg-gray-50 hover:bg-gray-100 transition flex flex-col justify-between"
+                className="flex flex-col border rounded-lg p-3 bg-gray-50 hover:bg-gray-100 transition"
               >
                 {/* Product Image */}
                 {item.imageUrl && (
-                  <Image
-                    src={item.imageUrl}
-                    alt={item.productName}
-                    width={150}
-                    height={150}
-                    className="object-cover rounded mb-3"
-                  />
+                  <div className="flex justify-center">
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.productName}
+                      width={150}
+                      height={150}
+                      className="object-cover rounded mb-3 w-full h-32 sm:h-36 md:h-40"
+                    />
+                  </div>
                 )}
 
                 {/* Product Info */}
-                <div className="flex flex-col gap-1">
-                  <span className="font-semibold text-gray-800">{item.productName}</span>
-                  <span className="text-gray-600 text-sm">Qty: {item.quantity}</span>
-                  <span className="text-gray-600 text-sm">Price: ${item.price}</span>
+                <div className="flex flex-col gap-1 text-sm sm:text-base">
+                  <span className="font-semibold text-gray-800">
+                    {item.productName}
+                  </span>
+                  <span className="text-gray-600">Qty: {item.quantity}</span>
+                  <span className="text-gray-600">Price: ${item.price}</span>
                   {item.status === "cancelled" && (
-                    <span className="text-red-500 font-medium">(Cancelled)</span>
+                    <span className="text-red-500 font-medium">
+                      (Cancelled)
+                    </span>
                   )}
                 </div>
 
@@ -163,7 +168,7 @@ const OrderList: React.FC<OrderListProps> = ({ user }) => {
                 {item.status !== "cancelled" && (
                   <button
                     onClick={() => handleCancelItem(order.id, item.id)}
-                    className="mt-3 bg-yellow-500 hover:bg-yellow-600 text-white text-xs px-3 py-1 rounded w-auto self-start"
+                    className="mt-3 bg-yellow-500 hover:bg-yellow-600 text-white text-xs sm:text-sm px-3 py-1 rounded w-fit self-start"
                   >
                     Cancel Item
                   </button>
@@ -172,12 +177,27 @@ const OrderList: React.FC<OrderListProps> = ({ user }) => {
             ))}
           </div>
 
-          {/* Order Date */}
-          {order.createdAt && (
-            <p className="mt-4 text-xs text-gray-400">
-              Ordered on: {order.createdAt?.toDate?.()?.toLocaleString() || ""}
+          {/* Order Date + Status */}
+          <div className="flex flex-col sm:flex-row sm:justify-between mt-4 text-xs sm:text-sm text-gray-500">
+            {order.createdAt && (
+              <p>
+                Ordered on:{" "}
+                {order.createdAt?.toDate?.()?.toLocaleString() || ""}
+              </p>
+            )}
+            <p>
+              Status:{" "}
+              <span
+                className={`font-medium ${
+                  order.status === "pending"
+                    ? "text-red-500"
+                    : "text-green-600"
+                }`}
+              >
+                {order.status}
+              </span>
             </p>
-          )}
+          </div>
         </div>
       ))}
     </div>

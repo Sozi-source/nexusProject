@@ -1,86 +1,70 @@
-import { productsProps } from "@/interfaces"
-import { useState, useEffect, useContext } from "react"
-import { useRouter } from "next/router"
-import Image from "next/image"
-import {useCart } from "@/context/CartContext"
+import { productsProps } from "@/interfaces";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import { useCart } from "@/context/CartContext";
 
-export default function ProductDetails(){
+export default function ProductDetails() {
+  const [product, setProduct] = useState<productsProps | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
+  const router = useRouter();
+  const { id } = router.query;
 
-    const[product, setProduct]=useState<productsProps|null>(null)
-    const[loading, setLoading]=useState(true)
-    const {addToCart}= useCart()
+  useEffect(() => {
+    if (!id) return;
 
-    const router= useRouter()
-    const {id}=router.query
+    const fetchProductDetails = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`https://dummyjson.com/products/${id}`);
+        const data = await response.json();
+        setProduct(data);
+      } catch (error) {
+        console.error("Error fetching product");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    useEffect(()=>{
-        if(!id) return;
-        const fetchProductsDetails=async()=>{
+    fetchProductDetails();
+  }, [id]);
 
-        try {
-        setLoading(true)
+  if (loading)
+    return <p className="text-blue-500 font-bold text-center mt-10">Loading...</p>;
+  if (!product)
+    return <p className="text-center mt-10 text-gray-600">Product not found</p>;
 
-        const response = await fetch(`https://dummyjson.com/products/${id}`)
-        const data = await response.json()
-        setProduct(data)
-        console.log(data)
-            
-        } catch (error) {
-            console.error("error fetching product") 
-        }finally{
-         setLoading(false)
-        }
+  return (
+    <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg border border-yellow-400 sm:p-10 p-6 my-12 mt-[10%]">
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         
-        }
-    fetchProductsDetails()
-    },[id])
-
-    if(loading) return <p className="text-blue-500 font-bold">Loading...</p>
-    if(!product)return <p>Products not found</p>  
-    
-    
-return(
-        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-6 sm:p-10 mt-6">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        
-        <div>
-        <div className="relative w-full h-64 sm:h-80 md:h-[400px]">
-                <Image src={product.thumbnail} 
-            alt={product.title} 
-            fill
-            className="rounded-lg object-cover mx-auto"/>
-        </div>
-        
-        {/* Thumbnail */}
-        <div>
-            {product.images.map((img, index)=>(
-                <Image key={index} 
-                src={img} 
-                alt={`${product.title} ${index}`}
-                width={100} 
-                height={100} 
-                className="rounded-md border cursor-pointer hover:scale-105 transition"/>
-            ))}
+        {/* Image Section */}
+        <div className="w-full">
+          <div className="relative w-full h-64 sm:h-80 md:h-[28rem] rounded-lg overflow-hidden shadow-sm">
+            <Image
+              src={product.thumbnail}
+              alt={product.title}
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
         </div>
 
-        </div>
+        {/* Text & Details */}
         <div className="space-y-4">
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900"> {product.title}</h3>
-            <p className="text-gray-500 text-sm sm:text-base">{product.brand} {product.category} </p>
-            <p className="text-gray-700 text-sm sm:text-base leading-relaxed">{product.description} </p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{product.title}</h1>
+          <p className="text-gray-500 text-sm sm:text-base">{product.brand} &middot; {product.category}</p>
+          <p className="text-gray-700 text-sm sm:text-base leading-relaxed">{product.description}</p>
 
-         {/* Pricing */}
-         <div className="flex items-center gap-4">
+          {/* Pricing */}
+          <div className="flex items-center gap-4">
             <span className="text-2xl font-semibold text-green-600">${product.price}</span>
             {product.discountPercentage > 0 && (
               <>
                 <span className="line-through text-gray-400">
-                  $
-                  {(
-                    product.price /
-                    (1 - product.discountPercentage / 100)
-                  ).toFixed(2)}
+                  ${(product.price / (1 - product.discountPercentage / 100)).toFixed(2)}
                 </span>
                 <span className="bg-red-500 text-white px-2 py-1 rounded-md text-sm">
                   -{product.discountPercentage}%
@@ -89,19 +73,32 @@ return(
             )}
           </div>
 
-          {/* Rating and Stock */}
-       <p className="text-yellow-500">{product.rating} </p>
-       <p className="text-sm text-gray-600">{product.stock > 0 ? `In stock: ${product.stock}` : "Out of stock"} </p>
+          {/* Rating & Stock */}
+          <div className="flex items-center gap-4">
+            <p className="text-yellow-600 font-lg">⭐<strong>{product.rating}</strong> </p>
+            <p className={`text-sm font-medium ${product.stock > 0 ? 'text-green-600' : 'text-red-500'}`}>
+              {product.stock > 0 ? `In stock: ${product.stock}` : "Out of stock"}
+            </p>
+          </div>
 
-         {/* Action */}
-       <div className="flex gap-4 mt-4">
-        <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition" onClick={()=>addToCart(product)}>
-          Add to Cart</button>
-        <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition">
-          Buy Now</button>
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <button
+              className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-white py-3 rounded-lg font-medium transition font-bold"
+              onClick={() => addToCart(product)}
+            >
+              Add to Cart
+            </button>
+
+            <button 
+            onClick={()=>router.push("/checkout")}
+            className="flex-1 bg-red-400 hover:bg-red-500 text-white py-3 rounded-lg font-medium transition font-bold">
+              Buy Now
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
-    </div>
-    </div>
-    </div>
-    )
+  );
 }

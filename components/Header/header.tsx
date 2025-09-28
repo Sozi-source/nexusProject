@@ -51,7 +51,7 @@ const Header: React.FC = () => {
                   <Link href="/">Home</Link>
                 </li>
                 <li className="hover:text-orange-400">
-                  <Link href="/profile">Profile</Link>
+                  <Link href="/profile">Account</Link>
                 </li>
               </ul>
             </nav>
