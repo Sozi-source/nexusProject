@@ -21,7 +21,7 @@ export default function ProductsPage(){
         console.log(data)
             
         } catch (error) {
-            console.error("error fetching products") 
+            console.error("error fetching products", error) 
         }finally{
          setLoading(false)
         }
@@ -30,14 +30,14 @@ export default function ProductsPage(){
     fetchProducts()
     },[])
 
-    if(loading) return <p className="m-5 text-blue-500 font-bold animate-bounce [animation-delay:-0.2s">Loading...</p>
+    if(loading) return <p className="m-5 text-blue-500 font-bold animate-bounce [animation-delay:-0.2s]">Loading...</p>
      
     
 return(
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-8">
         {products.map((product)=>(
-            <div>
-                <ProductCard key={product.id} product={product}/>
+            <div  key={product.id}>
+                <ProductCard product={product}/>
             </div>
         ))}
         </div>
