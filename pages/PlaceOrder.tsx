@@ -1,8 +1,7 @@
 // pages/PlaceOrder.ts
-import { User } from "firebase/auth";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase/firebaseConfig";
-import { productsProps } from "@/interfaces";
+
 
 // Define OrderItem interface
 export interface OrderItem {

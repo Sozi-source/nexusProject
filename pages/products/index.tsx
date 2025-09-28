@@ -1,13 +1,13 @@
 import { productsProps } from "@/interfaces"
 import { useState, useEffect } from "react"
 import ProductCard from "@/components/common/ProductCard"
-import { useCart } from "@/context/CartContext"
+
 
 export default function ProductsPage(){
 
     const[products, setProducts]=useState<productsProps[]>([])
     const[loading, setLoading]=useState(true)
-    const{cart}= useCart()
+   
 
     useEffect(()=>{
         const fetchProducts=async()=>{
@@ -34,10 +34,12 @@ export default function ProductsPage(){
      
     
 return(
-        <div className="flex w-full ">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-8">
-            
-        </div>
+        {products.map((product)=>(
+            <div>
+                <ProductCard key={product.id} product={product}/>
+            </div>
+        ))}
         </div>
     )
 }

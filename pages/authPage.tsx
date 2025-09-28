@@ -16,12 +16,11 @@ const AuthPage: React.FC = () => {
         const redirect= (router.query.redirect as string) || "/";
         router.push(redirect)
     }
-   },[user, router])
+   },[user, router,loading])
 
-
-
+ 
     return (
-        <div className='flex flex-col items-center justify-center min-h-screen bg-gray-50 mt-10'>
+        <div className='flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4 mt-10'>
            <div className='w-full max-w-md rounded-2xl bg-white p-6 shadow-lg'>
              <h1 className='text-center text-2xl font-bold text-gray-800 mb-4'>
                 {mode==="signin"? "Sign In": "Sign Up"} 
@@ -29,12 +28,12 @@ const AuthPage: React.FC = () => {
                 
                 {mode === "signin"? <SignIn/> : <SignUp/>}
 
-            <button onClick={()=> setMode(mode==="signin"? "signup": "signin")}>
+            <p onClick={()=> setMode(mode==="signin"? "signup": "signin")}>
 
                 <p className='mt-6 text-center text-sm text-gray-600'>
                     {mode==="signin"? (
                         <>
-                        Don't have an account?{""} 
+                        Don&apos;t have an account?
                         <span onClick={()=>setMode("signup")}
                         className='cursor-pointer font-semibold text-yellow-600 hover:underline'>
                          Create one 
@@ -42,7 +41,7 @@ const AuthPage: React.FC = () => {
                         </>
                     ):(
                         <>
-                        Already have an account?{""}
+                        Already have an account?
                         <span onClick={()=>setMode("signin")} 
                         className='cursor-pointer font-semibold text-yellow-600 hover:underline'>
                             Sign In
@@ -51,7 +50,7 @@ const AuthPage: React.FC = () => {
                     )}     
                 </p>
 
-            </button>
+            </p>
            </div>
       
         </div>

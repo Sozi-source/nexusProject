@@ -8,6 +8,7 @@ import {
   getDocs,
   updateDoc,
   doc,
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "@/firebase/firebaseConfig";
 import { User } from "firebase/auth";
@@ -30,7 +31,7 @@ interface Order {
   id: string;
   items: OrderItem[];
   status: string;
-  createdAt: any;
+  createdAt?: Timestamp;
 }
 
 const OrderList: React.FC<OrderListProps> = ({ user }) => {

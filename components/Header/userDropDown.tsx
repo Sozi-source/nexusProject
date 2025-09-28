@@ -11,7 +11,7 @@ interface UserDropdownProps {
   signOut: () => void;
 }
 
-const UserDropdown: React.FC<UserDropdownProps> = ({ user, signOut }) => {
+const UserDropdown: React.FC<UserDropdownProps> = ({ signOut }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();

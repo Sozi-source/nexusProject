@@ -43,9 +43,12 @@ const PlaceOrderButton: React.FC<PlaceOrderButtonProps> = ({
       console.log("Order placed with ID:", orderRef.id);
       alert("Order placed successfully!");
       clearCart();
-    } catch (error: any) {
-      console.error("Error placing order:", error);
-      alert(error.message || "There was an error placing your order. Try again.");
+    } catch (error: unknown) {
+      if(error instanceof Error){
+         console.error("Error placing order:", error);
+         alert(error.message || "There was an error placing your order. Try again.");   
+      }
+     
     } finally {
       setLoading(false);
     }

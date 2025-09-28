@@ -1,106 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { useAuth } from "@/firebase/auth";
-// import ProtectedRoute from "@/components/common/protectedRoute";
-// import PlaceOrderButton from "@/components/checkout/PlaceOrderButton";
-// import OrderList from "@/pages/profile/OrderList";
-// import { db } from "@/firebase/firebaseConfig";
-// import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
-// import { useCart } from "@/context/CartContext";
-
-// const Checkout: React.FC = () => {
-//   const { user, loading } = useAuth();
-//   const [userReady, setUserReady] = useState(false);
-//   const [ensuringUser, setEnsuringUser] = useState(false);
-//   const { cart, getTotalPrice } = useCart();
-
-//   const ensureUserDocument = async () => {
-//     if (!user?.uid) return;
-//     if (userReady || ensuringUser) return;
-
-//     setEnsuringUser(true);
-//     try {
-//       const userRef = doc(db, "users", user.uid);
-//       const userSnap = await getDoc(userRef);
-
-//       if (!userSnap.exists()) {
-//         await setDoc(userRef, {
-//           uid: user.uid,
-//           email: user.email || "",
-//           displayName: user.displayName || "",
-//           createdAt: serverTimestamp(),
-//         });
-//         console.log("User document created");
-//       } else {
-//         console.log("User already exists");
-//       }
-
-//       setUserReady(true);
-//     } catch (error: any) {
-//       console.error(error);
-//     } finally {
-//       setEnsuringUser(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (user) ensureUserDocument();
-//   }, [user]);
-
-//   return (
-//     <ProtectedRoute isAuthenticated={!!user} loading={loading}>
-//       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 mt-[5%]">
-//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-//           {/* Left Section */}
-//           <div className="lg:col-span-1 space-y-6">
-//             <div className="bg-white shadow-md rounded-lg p-6 gap-5">
-//               <h2>Order summary</h2>
-//               {user && (
-//                 <p className="mt-2 text-gray-600 text-sm sm:text-base">
-//                   Welcome,{" "}
-//                   <span className="font-medium">
-//                     {user.displayName || user.email}
-//                   </span>
-//                 </p>
-//               )}
-//               {cart.length > 0 && (
-//               <div className="bg-gray-100 shadow-md rounded-lg p-6 mt-5">
-//                 <p className="text-lg font-semibold text-gray-400">
-//                   Total: <span className="text-blue-500">${getTotalPrice().toFixed(2)}</span>
-//                 </p>
-
-//                 {user && (
-//                   <div className="">
-//                     <PlaceOrderButton
-//                       user={user}
-//                       onBeforePlaceOrder={ensureUserDocument}
-//                       disabled={ensuringUser || !userReady}
-//                     />
-//                   </div>
-//                 )}
-//               </div>
-//             )}
-//             </div>
-//           </div>
-
-//           {/* Right Section */}
-//           <div className="lg:col-span-2">
-//             <div className="bg-white shadow-md rounded-lg p-6">
-//               <h3 className="text-xl font-semibold text-yellow-500 mb-4">
-//                 Your Orders
-//               </h3>
-//               {user && <OrderList user={user} />}
-//             </div>
-//           </div>
-
-//         </div>
-//       </div>
-//     </ProtectedRoute>
-//   );
-// };
-
-// export default Checkout;
-
 import { useEffect, useState } from "react";
 import { useAuth } from "@/firebase/auth";
 import ProtectedRoute from "@/components/common/protectedRoute";
@@ -138,7 +35,7 @@ const Checkout: React.FC = () => {
       }
 
       setUserReady(true);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
     } finally {
       setEnsuringUser(false);
@@ -147,7 +44,7 @@ const Checkout: React.FC = () => {
 
   useEffect(() => {
     if (user) ensureUserDocument();
-  }, [user]);
+  }, [user, ensuringUser, userReady]);
 
   return (
     <ProtectedRoute isAuthenticated={!!user} loading={loading}>

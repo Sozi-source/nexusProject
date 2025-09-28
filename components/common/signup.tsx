@@ -26,8 +26,10 @@ const SignUp:React.FC = () => {
         try {
             await signUp(email.trim(), password, name.trim())
             router.push("/")
-        } catch (err:any) {
-            setError(err.message || "Failed to signup")
+        } catch (err:unknown) {
+            if(err instanceof Error){
+                setError(err.message || "Failed to signup")
+            }
             
         }finally{
             setLoading(false)
@@ -38,7 +40,7 @@ const SignUp:React.FC = () => {
         setPassword('');
         setName('');
     };
-
+        if(loading) return <p>Loading...</p>
     return (
              <form onSubmit={handleSubmit} className='mt-4 space-y-5'>
                 <div>

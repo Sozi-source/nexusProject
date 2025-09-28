@@ -1,7 +1,6 @@
 import React from "react";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
-import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -9,8 +8,7 @@ const Cart: React.FC = () => {
   const { cart, removeFromCart, incrementQuantity, decrementQuantity, getTotalPrice } =
     useCart();
   const router = useRouter();
-  const { user } = useAuth();
-
+  
   return (
     <div className="bg-gray-100 pt-20 mt-8 min-h-screen">
       <div className="max-w-5xl mx-auto p-6 shadow-lg bg-white rounded-lg">

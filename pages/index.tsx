@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react"
 import { productsProps } from "@/interfaces";
 import ProductCard from "@/components/common/ProductCard";
 
@@ -10,7 +9,6 @@ interface Category {
 }
 
 const Home: React.FC = () => {
-  const router = useRouter();
   const [products, setProducts] = useState<productsProps[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(false);
