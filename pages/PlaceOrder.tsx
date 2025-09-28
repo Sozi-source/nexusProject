@@ -12,7 +12,7 @@ export interface OrderItem {
   imageUrl?: string;
 }
 
-export const placeOrder = async (items: OrderItem[], userId: string) => {
+const placeOrder = async (items: OrderItem[], userId: string) => {
   try {
     for (const item of items) {
       await addDoc(collection(db, "orders"), {
@@ -30,3 +30,4 @@ export const placeOrder = async (items: OrderItem[], userId: string) => {
     console.error("Error placing orders:", error);
   }
 };
+export default placeOrder;
