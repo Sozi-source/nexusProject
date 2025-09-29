@@ -1,45 +1,77 @@
-import { productsProps } from "@/interfaces"
-import { useState, useEffect } from "react"
-import ProductCard from "@/components/common/ProductCard"
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import ProductCard from "@/components/common/ProductCard";
+import { productsProps } from "@/interfaces";
 
+const ProductsPage: React.FC = () => {
+  const [products, setProducts] = useState<productsProps[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filteredProducts, setFilteredProducts] = useState<productsProps[]>([]);
+  const router = useRouter();
+  const { search } = router.query;
 
-export default function ProductsPage(){
+  // Fetch products
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`https://dummyjson.com/products?limit=0`);
+        const data = await response.json();
+        setProducts(data.products);
+        setFilteredProducts(data.products); // initialize
+      } catch (error) {
+        console.error("Error fetching products", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
-    const[products, setProducts]=useState<productsProps[]>([])
-    const[loading, setLoading]=useState(true)
-   
+  // Filter when search changes
+  useEffect(() => {
+    if (search && products.length > 0) {
+      const term = (search as string).toLowerCase();
+      setFilteredProducts(
+        products.filter((p) =>
+          [p.title, p.category, p.brand, String(p.price)]
+            .some((field) =>
+              field?.toString().toLowerCase().includes(term)
+            )
+        )
+      );
+    } else {
+      setFilteredProducts(products);
+    }
+  }, [search, products]);
 
-    useEffect(()=>{
-        const fetchProducts=async()=>{
+  if (loading) {
+    return (
+      <p className="m-5 text-blue-500 font-bold animate-bounce">
+        Loading...
+      </p>
+    );
+  }
 
-        try {
-        setLoading(true)
+  return (
+    <div className="px-4 sm:px-6 lg:px-8 py-6 mt-[5%]">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Our Products</h2>
 
-        const response = await fetch(`https://dummyjson.com/products?limit=0`)
-        const data = await response.json()
-        setProducts(data.products)
-        console.log(data)
-            
-        } catch (error) {
-            console.error("error fetching products", error) 
-        }finally{
-         setLoading(false)
-        }
-        
-        }
-    fetchProducts()
-    },[])
-
-    if(loading) return <p className="m-5 text-blue-500 font-bold animate-bounce [animation-delay:-0.2s]">Loading...</p>
-     
-    
-return(
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 m-8">
-        {products.map((product)=>(
-            <div  key={product.id}>
-                <ProductCard product={product}/>
+      {filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+          {filteredProducts.map((product) => (
+            <div key={product.id} className="flex">
+              <ProductCard product={product} />
             </div>
-        ))}
+          ))}
         </div>
-    )
-}
+      ) : (
+        <p className="text-gray-500">
+          No products found {search ? `for "${search}"` : ""}
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default ProductsPage;

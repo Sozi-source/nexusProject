@@ -28,7 +28,13 @@ const Header: React.FC = () => {
           {/* Desktop Search & Nav */}
           <div className="hidden md:flex flex-1 items-center mx-6">
             {/* Search */}
-            <form className="flex flex-1 max-w-md gap-2">
+            <form className="flex flex-1 max-w-md gap-2"
+              onSubmit={(e)=>{
+              e.preventDefault();
+              if(searchTerm.trim()){
+                router.push(`/products?search=${encodeURIComponent(searchTerm)}`)
+              }
+            }}>
               <input
                 type="text"
                 value={searchTerm}
@@ -58,8 +64,14 @@ const Header: React.FC = () => {
           </div>
 
           {/* Right side */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-8">
             {/* Cart */}
+             {/* user */}
+          
+          <div>
+            <p className="text-gray-600">Hi, {user?.displayName}</p>
+          </div>
+            
             <div
               className="relative cursor-pointer"
               onClick={() => router.push("/cart")}
@@ -101,7 +113,13 @@ const Header: React.FC = () => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-white shadow-md border-t border-gray-200">
           <div className="px-4 py-4 space-y-4">
-            <form className="flex gap-2">
+            <form className="flex gap-2"
+            onSubmit={(e)=>{
+              e.preventDefault();
+              if(searchTerm.trim()){
+                router.push(`/products?search=${encodeURIComponent(searchTerm)}`)
+              }
+            }}>
               <input
                 type="text"
                 value={searchTerm}
