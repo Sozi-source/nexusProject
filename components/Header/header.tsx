@@ -69,7 +69,11 @@ const Header: React.FC = () => {
              {/* user */}
           
           <div>
-            <p className="text-gray-600">Hi, {user?.displayName}</p>
+            {user? (
+              <p>Hi, {user.displayName}</p>
+            ):(
+              <p>Guest</p>
+            )}
           </div>
             
             <div
