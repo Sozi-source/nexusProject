@@ -89,12 +89,6 @@ export default function ProductDetails() {
             >
               Add to Cart
             </button>
-
-            <button 
-            onClick={()=>router.push("/checkout")}
-            className="flex-1 bg-red-400 hover:bg-red-500 text-white py-3 rounded-lg font-medium transition font-bold">
-              Buy Now
-            </button>
           </div>
         </div>
 

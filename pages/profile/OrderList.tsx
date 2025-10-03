@@ -20,11 +20,11 @@ interface OrderListProps {
 
 interface OrderItem {
   id: string;
-  productName: string;
+  title: string;
   quantity: number;
   price: number;
   status?: string; // pending, cancelled
-  imageUrl?: string;
+  thumbnail?: string;
 }
 
 interface Order {
@@ -121,7 +121,7 @@ const OrderList: React.FC<OrderListProps> = ({ user }) => {
         // Parent Card
         <div
           key={order.id}
-          className="w-full border rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow p-4 sm:p-6 flex flex-col"
+          className="w-full border border-gray-300 border-2 rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow p-4 sm:p-6 flex flex-col"
         >
           {/* Order Header */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4">
@@ -131,30 +131,31 @@ const OrderList: React.FC<OrderListProps> = ({ user }) => {
           </div>
 
           {/* Items Container */}
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
             {order.items.map((item: OrderItem) => (
               // Child Card
               <div
                 key={item.id}
-                className="flex flex-col border rounded-lg p-3 bg-gray-50 hover:bg-gray-100 transition"
+                className="flex flex-col border border-blue-300 border-2 rounded-lg p-3 bg-white hover:bg-gray-50 transition max-w-xs mx-auto"
               >
                 {/* Product Image */}
-                {item.imageUrl && (
+                {item.thumbnail && (
                   <div className="flex justify-center">
                     <Image
-                      src={item.imageUrl}
-                      alt={item.productName}
-                      width={150}
-                      height={150}
-                      className="object-cover rounded mb-3 w-full h-32 sm:h-36 md:h-40"
+                      src={item.thumbnail}
+                      alt={item.title}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      className="object-cover rounded w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36"
                     />
                   </div>
                 )}
 
                 {/* Product Info */}
                 <div className="flex flex-col gap-1 text-sm sm:text-base">
-                  <span className="font-semibold text-gray-800">
-                    {item.productName}
+                  <span className="font-semibold text-blue-500">
+                  {item.title}
                   </span>
                   <span className="text-gray-600">Qty: {item.quantity}</span>
                   <span className="text-gray-600">Price: ${item.price}</span>
@@ -169,7 +170,7 @@ const OrderList: React.FC<OrderListProps> = ({ user }) => {
                 {item.status !== "cancelled" && (
                   <button
                     onClick={() => handleCancelItem(order.id, item.id)}
-                    className="mt-3 bg-yellow-500 hover:bg-yellow-600 text-white text-xs sm:text-sm px-3 py-1 rounded w-fit self-start"
+                    className="mt-3 bg-red-500 hover:bg-red-600 text-white text-xs sm:text-sm px-3 py-1 rounded w-fit self-start"
                   >
                     Cancel Item
                   </button>

@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import { productsProps } from "@/interfaces";
 import ProductCard from "@/components/common/ProductCard";
 import Header from "@/components/Header/header";
+import { MdAttachEmail, MdOutlineEmail } from "react-icons/md";
+import { PhoneCallIcon } from "lucide-react";
+import { BsFacebook } from "react-icons/bs";
+import { FaFacebook } from "react-icons/fa";
+
 
 interface Category {
   slug: string;
@@ -106,7 +111,21 @@ const Home: React.FC = () => {
 
         {/* Contact informatio */}
         <div className="ml-5 shadow p-5 bg-white border border-yellow-300 space-y-2 rounded-md mt-5">
-          <h4>Contact Us</h4>
+          <h4 className="text-lg font-bold">Contact Us</h4>
+
+          <p className="flex space-x-2">
+            <MdOutlineEmail/> <a href="mailto:osozi.1990@gmail.com" className="text-sm text-blue-600 hover:underline"> osozi.1990@gmail.com</a>
+          </p>
+
+          <p className="flex space-x-2">
+            <PhoneCallIcon/>
+            <a href="+254711390861" className="text-sm text-blue-600 hover:underline"> +254711390861</a>
+          </p>
+
+          <p className="flex space-x-4">
+            <FaFacebook/> <a href="https://web.facebook.com/osozi.wilfred1" target="_blank" className="text-sm text-blue-600 hover:underline">Facebook</a>
+          </p>
+        
         </div>
       </aside>
 

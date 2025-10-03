@@ -49,12 +49,12 @@ const Checkout: React.FC = () => {
 
   return (
     <ProtectedRoute isAuthenticated={!!user} loading={loading}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8 mt-6 sm:mt-[5%]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8 mt-6 sm:mt-[10%] border border-gray-200">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           
           {/* Left Section - Place Order */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-4 sm:p-6 space-y-6">
+          <div className="lg:col-span-1 sticky top-20 self-start">
+            <div className="bg-white rounded-lg shadow p-4 sm:p-6 space-y-6 border border-yellow-200">
               <h3 className="text-lg sm:text-xl font-semibold text-yellow-600">
                 Checkout
               </h3>
@@ -87,7 +87,7 @@ const Checkout: React.FC = () => {
 
           {/* Right Section - Orders List */}
           <div className="lg:col-span-2">
-            <div className="bg-white border rounded-lg shadow p-4 sm:p-6">
+            <div className="bg-white border rounded-lg shadow p-4 sm:p-6 border border-yellow-200">
               <h3 className="text-lg sm:text-xl font-semibold text-yellow-600 mb-4">
                 Your Orders
               </h3>
