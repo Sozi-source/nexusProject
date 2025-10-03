@@ -70,9 +70,9 @@ const Header: React.FC = () => {
           
           <div>
             {user? (
-              <p>Hi, {user.displayName}</p>
+              <p className="text-gray-200 text-sm">Hi, {user.displayName}</p>
             ):(
-              <p>Hi, guest</p>
+              <p className="text-gray-200 text-sm">Hi, Guest</p>
             )}
           </div>
             
