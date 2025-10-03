@@ -72,7 +72,7 @@ const Header: React.FC = () => {
             {user? (
               <p>Hi, {user.displayName}</p>
             ):(
-              <p>Guest</p>
+              <p>Hi, guest</p>
             )}
           </div>
             
