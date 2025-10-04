@@ -37,8 +37,8 @@ const ProductRow: React.FC<{ products: productsProps[]; bgColor?: string }> = ({
       {/* Mobile: horizontal scroll; Desktop: grid */}
       <div className="flex flex-row gap-4 overflow-x-auto sm:grid sm:grid-cols-4 md:grid-cols-5">
         {products.map((product) => (
-          <div className="flex-shrink-0 w-60 sm:w-auto">
-            <ProductCard key={product.id} product={product} />
+          <div key={product.id}  className="flex-shrink-0 w-60 sm:w-auto">
+            <ProductCard product={product} />
           </div>
         ))}
       </div>
