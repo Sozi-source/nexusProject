@@ -103,7 +103,7 @@ const Home: React.FC = () => {
   const productRows = chunkArray(products, PRODUCTS_PER_ROW);
 
   return (
-    <div className="min-h-screen bg-red-700 flex">
+    <div className="min-h-screen bg-red-700 w-full">
       {/* Header */}
       <Header />
 
