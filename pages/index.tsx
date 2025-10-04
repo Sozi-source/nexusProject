@@ -139,7 +139,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* Products Grid */}
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">
+        <h2 className="text-2xl font-bold mb-4 text-yellow-500">
           {selectedCategory
             ? `Products in ${selectedCategory.replace("-", " ")}`
             : "All Products"}

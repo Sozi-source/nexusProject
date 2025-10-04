@@ -55,7 +55,7 @@ const ProductsPage: React.FC = () => {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 mt-[5%]">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Our Products</h2>
+      <h2 className="text-2xl font-bold text-yellow-600 mb-6">Our Products</h2>
 
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-4 items-stretch">
