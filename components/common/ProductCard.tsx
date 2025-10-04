@@ -12,13 +12,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
 
   return (
-    <div className="border rounded-lg shadow-md overflow-hidden bg-white hover:shadow-lg transition-shadow duration-200 flex flex-col">
+    <div className="border border-gray-100 rounded-lg shadow-md overflow-hidden bg-white hover:shadow-lg transition-shadow duration-200 flex flex-col">
       {/* Responsive Image Section */}
       <div className="relative w-full aspect-square sm:aspect-[4/3] md:aspect-video lg:aspect-[16/9]">
         <Image
           src={product.thumbnail}
           alt={product.title}
-          fill
+          width={200}
+          height={200}
           className="object-cover rounded-md"
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
