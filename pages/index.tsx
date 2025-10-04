@@ -103,12 +103,14 @@ const Home: React.FC = () => {
   const productRows = chunkArray(products, PRODUCTS_PER_ROW);
 
   return (
-    <div className="min-h-screen bg-red-700 w-full">
-      {/* Header */}
-      <Header />
+  <div className="min-h-screen w-full flex flex-col bg-red-700">
+    {/* Header */}
+    <Header />
 
+    {/* Page Layout (Sidebar + Main) */}
+    <div className="flex flex-1 w-full">
       {/* Sidebar */}
-      <aside className="hidden lg:block w-1/5 bg-white shadow-lg p-4 overflow-x-auto fixed top-20 ml-3 rounded-md">
+      <aside className="hidden lg:block w-1/5 bg-white shadow-lg p-4 overflow-y-auto fixed top-20 left-0 bottom-0 ml-3 rounded-md">
         {loadingCategories ? (
           <ul className="ml-5 shadow p-5 bg-white border border-yellow-300 space-y-2 rounded-md">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -122,7 +124,9 @@ const Home: React.FC = () => {
                 <li
                   key={cat.slug}
                   className={`rounded cursor-pointer capitalize text-sm text-gray-900 font-serif px-2 py-1 ${
-                    selectedCategory === cat.slug ? "bg-blue-100 font-semibold" : "hover:bg-blue-50"
+                    selectedCategory === cat.slug
+                      ? "bg-blue-100 font-semibold"
+                      : "hover:bg-blue-50"
                   }`}
                   onClick={() => setSelectedCategory(cat.slug)}
                 >
@@ -139,19 +143,25 @@ const Home: React.FC = () => {
         <div className="ml-5 shadow p-5 bg-white border border-yellow-300 space-y-2 rounded-md mt-5">
           <h4 className="text-lg font-bold">Contact Us</h4>
           <p className="flex space-x-2">
-            <MdOutlineEmail />{" "}
-            <a href="mailto:osozi.1990@gmail.com" className="text-sm text-blue-600 hover:underline">
+            <MdOutlineEmail />
+            <a
+              href="mailto:osozi.1990@gmail.com"
+              className="text-sm text-blue-600 hover:underline"
+            >
               osozi.1990@gmail.com
             </a>
           </p>
           <p className="flex space-x-2">
             <PhoneCallIcon />
-            <a href="+254711390861" className="text-sm text-blue-600 hover:underline">
+            <a
+              href="+254711390861"
+              className="text-sm text-blue-600 hover:underline"
+            >
               +254711390861
             </a>
           </p>
           <p className="flex space-x-4">
-            <FaFacebook />{" "}
+            <FaFacebook />
             <a
               href="https://web.facebook.com/osozi.wilfred1"
               target="_blank"
@@ -164,7 +174,7 @@ const Home: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 lg:ml-[20%] mt-20 p-6 w-full mx-0">
+      <main className="flex-1 lg:ml-[22%] mt-20 p-6 w-full bg-red-700">
         {/* Hero */}
         <div className="shadow bg-white text-yellow-600 text-center py-6 rounded-lg mb-6">
           <h1 className="text-4xl md:text-5xl font-bold mb-2">eDUKA</h1>
@@ -173,33 +183,37 @@ const Home: React.FC = () => {
           </p>
         </div>
 
-    {/* Product Rows */}
-    {loadingProducts ? (
-        <div className="space-y-6">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={`skeleton-row-${i}`}
-              className="p-4 bg-gray-100 rounded-md shadow animate-pulse grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"
-            >
-              {Array.from({ length: PRODUCTS_PER_ROW }).map((_, j) => (
-                <div key={`skeleton-item-${i}-${j}`} className="h-40 bg-gray-300 rounded-md"></div>
-              ))}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <>
-    {productRows.map((row, rowIndex) => (
-      <ProductRow
-        key={`row-${rowIndex}-${row[0]?.id || rowIndex}`}
-        products={row}
-        bgColor={rowIndex % 2 === 0 ? "bg-gray-50" : "bg-white"}
-      />
-    ))}
-  </>
-)}
+        {/* Product Rows */}
+        {loadingProducts ? (
+          <div className="space-y-6">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={`skeleton-row-${i}`}
+                className="p-4 bg-gray-100 rounded-md shadow animate-pulse grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"
+              >
+                {Array.from({ length: PRODUCTS_PER_ROW }).map((_, j) => (
+                  <div
+                    key={`skeleton-item-${i}-${j}`}
+                    className="h-40 bg-gray-300 rounded-md"
+                  ></div>
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            {productRows.map((row, rowIndex) => (
+              <ProductRow
+                key={`row-${rowIndex}-${row[0]?.id || rowIndex}`}
+                products={row}
+                bgColor={rowIndex % 2 === 0 ? "bg-gray-50" : "bg-white"}
+              />
+            ))}
+          </>
+        )}
       </main>
     </div>
+  </div>
   );
 };
 
