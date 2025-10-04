@@ -60,7 +60,7 @@ const ProductsPage: React.FC = () => {
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-4 items-stretch">
           {filteredProducts.map((product) => (
-              <ProductCard product={product} />            
+              <ProductCard key={product.id} product={product} />            
           ))}
         </div>
       ) : (
