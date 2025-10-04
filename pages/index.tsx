@@ -173,31 +173,31 @@ const Home: React.FC = () => {
           </p>
         </div>
 
-        {/* Product Rows */}
-        {loadingProducts ? (
-          <div className="space-y-6">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="p-4 bg-gray-100 rounded-md shadow animate-pulse grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"
-              >
-                {Array.from({ length: PRODUCTS_PER_ROW }).map((_, j) => (
-                  <div key={j} className="h-40 bg-gray-300 rounded-md"></div>
-                ))}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <>
-            {productRows.map((row, index) => (
-              <ProductRow
-                key={index}
-                products={row}
-                bgColor={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
-              />
-            ))}
-          </>
-        )}
+    {/* Product Rows */}
+    {loadingProducts ? (
+        <div className="space-y-6">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div
+              key={`skeleton-row-${i}`}
+              className="p-4 bg-gray-100 rounded-md shadow animate-pulse grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"
+            >
+              {Array.from({ length: PRODUCTS_PER_ROW }).map((_, j) => (
+                <div key={`skeleton-item-${i}-${j}`} className="h-40 bg-gray-300 rounded-md"></div>
+              ))}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <>
+    {productRows.map((row, rowIndex) => (
+      <ProductRow
+        key={`row-${rowIndex}-${row[0]?.id || rowIndex}`}
+        products={row}
+        bgColor={rowIndex % 2 === 0 ? "bg-gray-50" : "bg-white"}
+      />
+    ))}
+  </>
+)}
       </main>
     </div>
   );
