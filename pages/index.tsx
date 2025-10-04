@@ -35,9 +35,11 @@ const ProductRow: React.FC<{ products: productsProps[]; bgColor?: string }> = ({
   return (
     <section className={`${bgColor} p-4 rounded-md mb-6 shadow-sm`}>
       {/* Mobile: horizontal scroll; Desktop: grid */}
-      <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-4 gap-4 overflow-x-auto sm:overflow-x-visible">
+      <div className="flex flex-row gap-4 overflow-x-auto sm:grid sm:grid-cols-4 md:grid-cols-5">
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <div className="flex-shrink-0 w-60 sm:w-auto">
+            <ProductCard key={product.id} product={product} />
+          </div>
         ))}
       </div>
     </section>
