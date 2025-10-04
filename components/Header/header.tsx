@@ -53,11 +53,14 @@ const Header: React.FC = () => {
             {/* Navigation */}
             <nav className="ml-5">
               <ul className="flex space-x-6 text-gray-700 font-medium">
-                <li className="hover:text-orange-400">
+                <li className="hover:text-orange-400 text-sm">
                   <Link href="/">Home</Link>
                 </li>
-                <li className="hover:text-orange-400">
+                <li className="hover:text-orange-400 text-sm">
                   <Link href="/profile">Account</Link>
+                </li>
+                <li className="hover:text-orange-400 text-sm">
+                  <Link href="/contactUs">Contact Us</Link>
                 </li>
               </ul>
             </nav>

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { productsProps } from "@/interfaces";
 import ProductCard from "@/components/common/ProductCard";
-import Header from "@/components/Header/header";
-import { MdAttachEmail, MdOutlineEmail } from "react-icons/md";
+import Header from "@/components/Header/header"
 import { PhoneCallIcon } from "lucide-react";
-import { BsFacebook } from "react-icons/bs";
 import { FaFacebook } from "react-icons/fa";
+import { Footer } from "@/components/common/Footer";
+import { MdOutlineEmail } from "react-icons/md";
 
 
 interface Category {
@@ -80,7 +80,7 @@ const Home: React.FC = () => {
       <Header />
 
       {/* Sidebar */}
-      <aside className="hidden lg:block w-1/5 bg-white shadow-lg p-4 h-screen overflow-y-auto fixed top-20 ml-3 rounded-md">
+      <aside className="hidden lg:block w-1/5 bg-white shadow-lg p-4 overflow-y-auto fixed top-20 ml-3 rounded-md">
         {loadingCategories ? (
           <ul className="ml-5 shadow p-5 bg-white border border-yellow-300 space-y-2 rounded-md">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -156,7 +156,7 @@ const Home: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-5">
             {products.length > 0 ? (
               products.map((product) => (
                 <ProductCard key={product.id} product={product} />
