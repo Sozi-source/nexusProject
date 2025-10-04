@@ -110,7 +110,7 @@ const Home: React.FC = () => {
     {/* Page Layout (Sidebar + Main) */}
     <div className="flex flex-1 w-full">
       {/* Sidebar */}
-      <aside className="hidden lg:block w-1/5 bg-white shadow-lg p-4 overflow-y-auto fixed top-20 left-0 bottom-0 ml-3 rounded-md">
+      <aside className="hidden lg:block w-1/5 shadow-lg p-4 overflow-y-auto fixed top-20 left-0 bottom-0 ml-3 rounded-md">
         {loadingCategories ? (
           <ul className="ml-5 shadow p-5 bg-white border border-yellow-300 space-y-2 rounded-md">
             {Array.from({ length: 4 }).map((_, i) => (
