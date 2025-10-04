@@ -39,9 +39,9 @@ const ContactUs:React.FC=()=>{
                 {/* contact information */}
         <div className="flex flex-col items-start justify-start space-y-4 px-4 py-6 shadow rounded-md hover:bg-gray-100 bg-white">
             <h3 className="text-lg font-bold text-yellow-500 font-serif">Contact us</h3>
-            <p className="flex items-center space-x-3 hover:text-blue-600 gap-3 "><MdEmail className="h-6 w-6 text-gray-700"/> <span>shop@eduka.co.ke</span></p>
-            <p className="flex items-center space-x-3 hover:text-blue-600 gap-3"><PhoneCallIcon className="h-6 w-6 text-gray-700"/><span> +254711390861</span></p>
-            <p className="flex items-center space-x-3 gap-3"><CiLocationOn className="h-6 w-6 text-gray-600"/><span>Nairobi, Kenya</span> </p>
+            <p className="flex items-center space-x-3 hover:text-blue-600 gap-3 "><MdEmail className="h-6 w-6 text-black"/> <span>shop@eduka.co.ke</span></p>
+            <p className="flex items-center space-x-3 hover:text-blue-600 gap-3"><PhoneCallIcon className="h-6 w-6 text-black"/><span> +254711390861</span></p>
+            <p className="flex items-center space-x-3 gap-3"><CiLocationOn className="h-6 w-6 text-black"/><span>Nairobi, Kenya</span> </p>
         </div>
 
             {/* Message form */}
@@ -50,7 +50,7 @@ const ContactUs:React.FC=()=>{
                 <h3 className="text-lg font-bold text-yellow-500 font-serif">Message Us</h3>
 
                 <div className="flex flex-col">
-                <label htmlFor="name" className="mt-5">Name</label>
+                <label htmlFor="name" className="mt-5 text-black">Name</label>
                 <input 
                     type="text" 
                     value={name}
@@ -61,7 +61,7 @@ const ContactUs:React.FC=()=>{
                 </div>
                 
                 <div>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email" className="text-black">Email</label>
                 <input type="email"
                     value={email} 
                     onChange={(e)=>setEmail(e.target.value)}
@@ -70,7 +70,7 @@ const ContactUs:React.FC=()=>{
                 </div>
 
                 <div>
-                <label htmlFor="message">Message</label>
+                <label htmlFor="message" className="text-black">Message</label>
                 <textarea name="message"
                     value={message}
                     onChange={(e)=>setMessage(e.target.value)}
