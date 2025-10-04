@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2 px-3 sm:px-4 pb-3 sm:pb-4">
         <Link
           href={`/products/${product.id}`}
-          className="w-full sm:w-auto text-center font-sans bg-yellow-400 text-white px-3 py-2 rounded-md hover:bg-yellow-500 transition duration-200 text-sm sm:text-base"
+          className="w-full sm:w-auto text-center font-sans bg-gray-400 text-white px-3 py-2 rounded-md hover:bg-gray-500 transition duration-200 text-sm sm:text-base"
         >
           View Details
         </Link>
@@ -52,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <button
           onClick={() => addToCart(product)}
           disabled={product.stock <= 0}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-yellow-400 px-3 py-2 rounded-md hover:bg-yellow-500 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-yellow-500 px-3 py-2 rounded-md hover:bg-yellow-600 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         >
           <BiCart className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
           <span className="hidden sm:inline text-white font-medium">Add to Cart</span>
