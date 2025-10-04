@@ -1,6 +1,5 @@
 import { productsProps } from "@/interfaces";
 import Image from "next/image";
-import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/router";
 
 
@@ -9,7 +8,6 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { addToCart} = useCart();
   const router= useRouter()
   
   // property click

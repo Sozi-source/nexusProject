@@ -35,9 +35,9 @@ const ProductRow: React.FC<{ products: productsProps[]; bgColor?: string }> = ({
   return (
     <section className={`${bgColor} py-4 mb-6 shadow-sm w-full`}>
       {/* Mobile: horizontal scroll; Desktop: grid */}
-      <div className="flex flex-row gap-4 overflow-x-auto sm:grid sm:grid-cols-4 md:grid-cols-5">
+      <div className="flex flex-row gap-4 overflow-x-auto sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {products.map((product) => (
-          <div key={product.id}  className="flex-shrink-0 w-60 sm:w-auto">
+          <div key={product.id} className="flex-shrink-0 w-60 sm:w-auto">
             <ProductCard product={product} />
           </div>
         ))}
@@ -99,7 +99,7 @@ const Home: React.FC = () => {
   }, [selectedCategory]);
 
   // Split products into rows of 4
-  const PRODUCTS_PER_ROW = 4;
+  const PRODUCTS_PER_ROW = 5;
   const productRows = chunkArray(products, PRODUCTS_PER_ROW);
 
   return (
