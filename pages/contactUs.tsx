@@ -33,7 +33,7 @@ const ContactUs:React.FC=()=>{
     };
 
     return(
-        <div className="min-h-screen bg-gray-100 py-20 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gray-100 py-20 px-4 sm:px-6 lg:px-8 mt-[5%]">
             <div className="max-w-7xl mx-auto grid grid-cols-1 gap-6 lg:grid-cols-3">
 
                 {/* contact information */}
@@ -81,29 +81,8 @@ const ContactUs:React.FC=()=>{
                 <button type="submit" className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition-colors">Submit</button>
             </form>
         </div>
-
-        {/* Map location */}
-        <div className="lg:col-span-3 bg-white shadow rounded-md p-4">
-            <h3 className="text-lg sm:text-xl font-semibold text-yellow-500 mb-4 text-center">Find us On the Map</h3>
-            <div className="w-full h-64 sm:h-80 md:h-96 lg:h-[400px] xl:h-[500px] rounded-md overflow-hidden shadow-md">
-                <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d127649.13044240138!2d37.00207473267293!3d-1.1351346871630512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2ske!4v1759580590147!5m2!1sen!2ske"
-                className="w-full h-full border-0"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-        ></iframe>
-            </div>
-        </div>
-
-
-            </div>
-
-
-       
-
-        
-        </div>
-    )
+</div>
+</div>
+ )
 }
 export default ContactUs;

@@ -62,7 +62,7 @@ const Header: React.FC = () => {
                   <Link href="/profile">Account</Link>
                 </li>
                 <li className="hover:text-orange-400 text-sm">
-                  <Link href="/contactUs">Contact Us</Link>
+                  <Link href="/contactUs">Contacts</Link>
                 </li>
               </ul>
             </nav>

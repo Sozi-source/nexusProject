@@ -74,7 +74,7 @@ const Home: React.FC = () => {
   }, [selectedCategory]);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="min-h-screen bg-red-700 flex">
       {/* Header */}
       <Header />
 
@@ -131,15 +131,15 @@ const Home: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 lg:ml-[20%] mt-20 p-6">
         {/* Hero Section */}
-        <div className="shadow bg-yellow-500 text-white text-center py-6 rounded-lg mb-6">
+        <div className="shadow bg-white text-yellow-600 text-center py-6 rounded-lg mb-6">
           <h1 className="text-4xl md:text-5xl font-bold mb-2">eDUKA</h1>
           <p className="text-base md:text-lg">
-            Discover amazing products and enjoy effortless shopping
+            <span className="text-gray-800 font-serif">Discover amazing products and enjoy effortless shopping!</span>
           </p>
         </div>
 
         {/* Products Grid */}
-        <h2 className="text-2xl font-bold mb-4">
+        <h2 className="text-2xl font-bold mb-4 text-white">
           {selectedCategory
             ? `Products in ${selectedCategory.replace("-", " ")}`
             : "All Products"}
@@ -155,7 +155,7 @@ const Home: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {products.length > 0 ? (
               products.map((product) => (
                 <ProductCard key={product.id} product={product} />
