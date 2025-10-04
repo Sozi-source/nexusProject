@@ -5,7 +5,7 @@ import { FiChevronDown, FiUser, FiSettings, FiInfo } from "react-icons/fi";
 import { useRouter } from "next/router";
 import { GoSignOut } from "react-icons/go";
 import { Package } from "lucide-react";
-import { useAuth } from "@/firebase/auth";
+
 
 interface UserDropdownProps {
   user: User;
@@ -16,7 +16,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ signOut }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const {user}= useAuth()
+ 
 
   // Close dropdown when clicking outside
   useEffect(() => {

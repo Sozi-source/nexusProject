@@ -4,7 +4,6 @@ import ProductCard from "@/components/common/ProductCard";
 import Header from "@/components/Header/header"
 import { PhoneCallIcon } from "lucide-react";
 import { FaFacebook } from "react-icons/fa";
-import { Footer } from "@/components/common/Footer";
 import { MdOutlineEmail } from "react-icons/md";
 
 
@@ -156,7 +155,7 @@ const Home: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {products.length > 0 ? (
               products.map((product) => (
                 <ProductCard key={product.id} product={product} />
