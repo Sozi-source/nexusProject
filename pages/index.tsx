@@ -33,9 +33,9 @@ const ProductRow: React.FC<{ products: productsProps[]; bgColor?: string }> = ({
   bgColor = "bg-white",
 }) => {
   return (
-    <section className={`${bgColor} p-4 rounded-md mb-6 shadow-sm`}>
+    <section className={`${bgColor} py-4 mb-6 shadow-sm w-full`}>
       {/* Mobile: horizontal scroll; Desktop: grid */}
-      <div className="flex flex-row gap-4 overflow-x-auto sm:grid sm:grid-cols-3 md:grid-cols-4">
+      <div className="flex flex-row gap-4 overflow-x-auto sm:grid sm:grid-cols-4 md:grid-cols-5">
         {products.map((product) => (
           <div className="flex-shrink-0 w-60 sm:w-auto">
             <ProductCard key={product.id} product={product} />
@@ -164,7 +164,7 @@ const Home: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 lg:ml-[20%] mt-20 p-6">
+      <main className="flex-1 lg:ml-[20%] mt-20 p-6 w-full mx-0">
         {/* Hero */}
         <div className="shadow bg-white text-yellow-600 text-center py-6 rounded-lg mb-6">
           <h1 className="text-4xl md:text-5xl font-bold mb-2">eDUKA</h1>
