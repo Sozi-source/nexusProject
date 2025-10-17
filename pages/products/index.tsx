@@ -56,7 +56,7 @@ const ProductsPage: React.FC = () => {
   return (
     <div className="px-4 sm:px-6 lg:px-8 mt-[5%]">
        {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-4 items-stretch">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 items-stretch">
           {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />            
           ))}
