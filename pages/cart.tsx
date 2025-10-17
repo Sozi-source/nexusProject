@@ -36,11 +36,11 @@ const Cart: React.FC = () => {
               >
                 {/* Product Image */}
                 <div className="flex-shrink-0">
-                  <Image
+                  <img
                     src={item.thumbnail}
                     alt={item.title}
-                    height={100}
-                    width={100}
+                    height={200}
+                    width={200}
                     className="object-cover rounded-md"
                   />
                 </div>
