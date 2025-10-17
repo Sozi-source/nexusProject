@@ -35,7 +35,7 @@ export default function ProductDetails() {
     return <p className="text-center mt-10 text-gray-600">Product not found</p>;
 
   return (
-    <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg border border-yellow-400 sm:p-10 p-6 my-12 mt-[20%]">
+    <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg border border-yellow-400 sm:p-10 p-6 my-12 mt-[10%]">
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         

@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase/firebaseConfig";
 import { User } from "firebase/auth";
-import Image from "next/image";
+
 
 interface OrderListProps {
   user: User;
@@ -141,11 +141,11 @@ const OrderList: React.FC<OrderListProps> = ({ user }) => {
                 {/* Product Image */}
                 {item.thumbnail && (
                   <div className="flex justify-center">
-                    <Image
+                    <img
                       src={item.thumbnail}
                       alt={item.title}
-                      width={0}
-                      height={0}
+                      width={50}
+                      height={50}
                       sizes="100vw"
                       className="object-cover rounded w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36"
                     />
