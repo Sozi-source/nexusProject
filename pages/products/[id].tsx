@@ -46,6 +46,8 @@ export default function ProductDetails() {
               src={product.thumbnail}
               alt={product.title}
               className="object-cover rounded-lg"
+              width={250}
+              height={250}
             />
           </div>
         </div>
