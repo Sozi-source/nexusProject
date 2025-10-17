@@ -1,7 +1,6 @@
 import { productsProps } from "@/interfaces";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 
 export default function ProductDetails() {
@@ -43,10 +42,9 @@ export default function ProductDetails() {
         {/* Image Section */}
         <div className="w-full">
           <div className="relative w-full h-64 sm:h-80 md:h-[28rem] rounded-lg overflow-hidden shadow-sm">
-            <Image
+            <img
               src={product.thumbnail}
               alt={product.title}
-              fill
               className="object-cover rounded-lg"
             />
           </div>
