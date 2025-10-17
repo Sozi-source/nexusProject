@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div onClick={handleClick}
     className="rounded-xl overflow-hidden bg-white hover:shadow-lg hover:scale-[1.01] transition-all duration-200 flex flex-col h-full hover:bg-gray-100 shadow">
       {/* Responsive Image Section */}
-      <div className="relative w-full h-40 sm:h-56 md:h-60 lg:h-64 px-4 py-3 sm:px-0 sm:py-0">
+      <div className="relative w-full h-40 sm:h-56 md:h-60 lg:h-64 overflow-hidden">
         <Image
           src={product.thumbnail}
           alt={product.title}
