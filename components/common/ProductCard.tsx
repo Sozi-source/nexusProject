@@ -1,5 +1,4 @@
 import { productsProps } from "@/interfaces";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 
@@ -22,15 +21,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     className="rounded-xl overflow-hidden bg-white hover:shadow-lg hover:scale-[1.01] transition-all duration-200 flex flex-col h-full hover:bg-gray-100 shadow">
       {/* Responsive Image Section */}
       <div className="relative w-full h-40 sm:h-56 md:h-60 lg:h-64 px-4 py-3 sm:px-0 sm:py-0">
-        <Image
+        <img
           src={product.thumbnail}
           alt={product.title}
-          fill
           width={0}
           height={0}
           className="object-cover"
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          priority
         />
       </div>
 
