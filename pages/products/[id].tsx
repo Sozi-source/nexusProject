@@ -2,6 +2,8 @@ import { productsProps } from "@/interfaces";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useCart } from "@/context/CartContext";
+import Image from "next/image";
+
 
 export default function ProductDetails() {
   const [product, setProduct] = useState<productsProps | null>(null);
@@ -42,12 +44,13 @@ export default function ProductDetails() {
         {/* Image Section */}
         <div className="w-full">
           <div className="relative w-full h-64 sm:h-80 md:h-[28rem] rounded-lg overflow-hidden shadow-sm">
-            <img
+            <Image
               src={product.thumbnail}
               alt={product.title}
               className="object-cover rounded-lg"
               width={250}
               height={250}
+              loading="lazy"
             />
           </div>
         </div>
